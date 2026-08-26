@@ -1,0 +1,25 @@
+{
+ "content": null,
+ "creation": "2026-08-26 00:00:00.000000",
+ "docstatus": 0,
+ "doctype": "Page",
+ "icon": "ai",
+ "idx": 0,
+ "modified": "2026-08-26 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Financial AI Agent",
+ "name": "financial-ai-assistant",
+ "owner": "Administrator",
+ "page_name": "financial-ai-assistant",
+ "roles": [
+  {"role":"Financial AI User"},
+  {"role":"Financial AI Manager"},
+  {"role":"System Manager"}
+ ],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 0,
+ "title": "Financial AI Assistant"
+}
+

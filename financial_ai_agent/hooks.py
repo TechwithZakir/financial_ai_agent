@@ -7,6 +7,7 @@ app_license = "MIT"
 required_apps = ["frappe"]
 
 after_install = "financial_ai_agent.install.after_install"
+after_migrate = "financial_ai_agent.install.after_migrate"
 
 fixtures = [
     {

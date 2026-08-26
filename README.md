@@ -77,7 +77,7 @@ The project is intended for full production deployment, with emphasis on reliabi
 - Structured financial extraction with confidence, warnings, and mandatory human review
 - Knowledge ingestion with checksums, source chunks, citations, and permission-aware search
 - Approval decision and idempotent execution endpoints with separation of duties
-- Responsive `/financial-ai` chat interface linked from the Desk workspace
+- Native Desk assistant at `/app/financial-ai-assistant`, plus the `/financial-ai` web route
 
 ## Installation
 

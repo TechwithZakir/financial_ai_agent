@@ -40,3 +40,10 @@ def available_models(agent: str):
         return []
     return frappe.get_all("AI Model", filters={"enabled": 1}, fields=["name", "provider", "capabilities"])
 
+
+@frappe.whitelist()
+def available_agents():
+    _require_user()
+    return frappe.get_all(
+        "AI Agent", filters={"enabled": 1}, fields=["name", "description"], order_by="agent_name asc"
+    )

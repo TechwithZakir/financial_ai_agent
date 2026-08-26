@@ -46,7 +46,7 @@
  ],
  "sequence_id": 45,
  "shortcuts": [
-  {"color":"Purple","label":"Open AI Assistant","type":"URL","url":"/financial-ai"},
+  {"color":"Purple","doc_view":"","label":"Open AI Assistant","link_to":"financial-ai-assistant","type":"Page"},
   {"color":"Blue","doc_view":"List","label":"AI Agents","link_to":"AI Agent","type":"DocType"},
   {"color":"Orange","doc_view":"List","label":"AI Providers","link_to":"AI Provider","type":"DocType"},
   {"color":"Green","doc_view":"List","label":"AI Models","link_to":"AI Model","type":"DocType"}
