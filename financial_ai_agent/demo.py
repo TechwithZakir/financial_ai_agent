@@ -25,9 +25,9 @@ def generate_test_data() -> dict:
          "context_window": 32768, "max_output_tokens": 4000},
     )
     connector = _ensure(
-        "CRM Connector", "Local Frappe CRM Demo",
-        {"connector_name": "Local Frappe CRM Demo", "enabled": 1,
-         "crm_type": "Frappe CRM", "is_default": 1, "mode": "Local",
+        "CRM Connector", "Local ERPNext CRM Demo",
+        {"connector_name": "Local ERPNext CRM Demo", "enabled": 1,
+         "crm_type": "ERPNext CRM", "is_default": 1, "mode": "Local",
          "authentication_type": "Local Session", "timeout": 60, "retries": 0,
          "read_enabled": 1, "create_enabled": 1, "update_enabled": 1,
          "delete_enabled": 0, "approval_policy": '{"writes": "Amber"}'},

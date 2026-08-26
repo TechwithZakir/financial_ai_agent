@@ -12,11 +12,10 @@ def register_crm_provider(provider_type: str, provider_class: Type[BaseCRMProvid
 
 
 def get_crm_provider(connector) -> BaseCRMProvider:
-    if connector.crm_type == "Frappe CRM":
+    if connector.crm_type in {"ERPNext CRM", "Frappe CRM"}:
         from financial_ai_agent.providers.crm.frappe_crm import FrappeCRMProvider
         return FrappeCRMProvider(connector)
     try:
         return _PROVIDERS[connector.crm_type](connector)
     except KeyError as exc:
         raise ValueError(f"CRM provider is not installed: {connector.crm_type}") from exc
-
