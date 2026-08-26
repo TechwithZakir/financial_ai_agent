@@ -3,6 +3,7 @@ from __future__ import annotations
 import frappe
 
 from financial_ai_agent.ai.orchestrator import FinancialAIOrchestrator
+from financial_ai_agent.providers.llm.registry import get_provider
 
 
 def _require_user() -> str:
@@ -50,3 +51,37 @@ def available_agents():
     return frappe.get_all(
         "AI Agent", filters={"enabled": 1}, fields=["name", "description"], order_by="agent_name asc"
     )
+
+
+@frappe.whitelist()
+def test_agent_connection(agent: str):
+    _require_user()
+    agent_doc = frappe.get_doc("AI Agent", agent)
+    if not agent_doc.enabled:
+        return {"ok": False, "message": "The selected AI Agent is disabled."}
+    if not agent_doc.default_model:
+        return {"ok": False, "message": "The AI Agent has no default model."}
+    model = frappe.get_doc("AI Model", agent_doc.default_model)
+    if not model.enabled:
+        return {"ok": False, "message": "The agent's default AI Model is disabled."}
+    provider = frappe.get_doc("AI Provider", model.provider)
+    if not provider.enabled:
+        return {"ok": False, "message": "The model's AI Provider is disabled."}
+    try:
+        result = get_provider(provider).test_connection() or {}
+        return {
+            "ok": bool(result.get("ok")),
+            "agent": agent_doc.name,
+            "provider": provider.provider_name,
+            "model": model.model_id,
+            "message": result.get("message") or "AI provider connection is available.",
+        }
+    except Exception:
+        correlation = frappe.generate_hash(length=12)
+        frappe.log_error(frappe.get_traceback(), f"AI connection test failed {correlation}")
+        return {
+            "ok": False,
+            "provider": provider.provider_name,
+            "model": model.model_id,
+            "message": f"AI provider is unavailable. Reference: {correlation}",
+        }

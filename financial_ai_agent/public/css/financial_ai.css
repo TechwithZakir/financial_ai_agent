@@ -29,7 +29,7 @@
 .fai-primary-action { width:100%; min-height:40px; border:0; border-radius:10px; padding:9px 12px; color:#fff; background:var(--fai-blue); font-weight:700; cursor:pointer; }
 .fai-primary-action:disabled { opacity:.5; cursor:not-allowed; }
 .fai-setup-card .fai-field { margin-bottom:12px; }
-.fai-side-upload { border:1px solid #1d4ed8; }
+.fai-side-upload { margin-top:9px; border:1px solid #1d4ed8; background:#fff; color:#1d4ed8; }
 .fai-success-text { color:#15803d; }
 .fai-error-text { color:#b42318; }
 .fai-count { min-width:25px; border-radius:999px; padding:3px 8px; color:#1d4ed8; background:#dbeafe; font-size:.72rem; font-weight:800; text-align:center; }

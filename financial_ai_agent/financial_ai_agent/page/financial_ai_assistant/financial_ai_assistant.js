@@ -1,6 +1,6 @@
 frappe.pages["financial-ai-assistant"].on_page_load = function (wrapper) {
   const page = frappe.ui.make_app_page({ parent: wrapper, title: __("Financial AI Assistant"), single_column: true });
-  const stylesheet = "/assets/financial_ai_agent/css/financial_ai.css?v=20260826-crm-workspace-3";
+  const stylesheet = "/assets/financial_ai_agent/css/financial_ai.css?v=20260826-ai-connection";
   const existing = document.querySelector('link[data-financial-ai-styles]');
   if (existing) {
     new FinancialAIDeskPage(page);
@@ -28,8 +28,10 @@ class FinancialAIDeskPage {
         <section id="fai-notice" class="fai-notice" hidden></section>
         <div class="fai-workspace-grid">
           <aside class="fai-sidebar">
-            <section class="fai-side-card fai-setup-card"><div class="fai-card-heading"><div><span class="fai-card-kicker">${__("ASSISTANT")}</span><h3>${__("Session Setup")}</h3></div></div>
+            <section class="fai-side-card fai-setup-card"><div class="fai-card-heading"><div><span class="fai-card-kicker">${__("ASSISTANT")}</span><h3>${__("Session Setup")}</h3></div><span id="fai-ai-dot" class="fai-status-dot"></span></div>
               <label class="fai-field">${__("Agent")}<select id="fai-agent"><option value="">${__("Loading agents…")}</option></select></label>
+              <div id="fai-ai-detail" class="fai-connector-detail">${__("Select an agent to check its AI provider.")}</div>
+              <button id="fai-ai-connect" class="fai-primary-action" type="button" disabled>${__("Connect / Test AI")}</button>
               <button id="fai-upload" class="fai-primary-action fai-side-upload" type="button">${__("Upload Document")}</button>
             </section>
             <section class="fai-side-card"><div class="fai-card-heading"><div><span class="fai-card-kicker">${__("INTEGRATION")}</span><h3>${__("CRM Connection")}</h3></div><span id="fai-crm-dot" class="fai-status-dot"></span></div>
@@ -50,15 +52,24 @@ class FinancialAIDeskPage {
   bind() {
     this.root.find("#fai-composer").on("submit", (event) => { event.preventDefault(); const input=this.root.find("#fai-message"); const text=input.val().trim(); if(text){input.val("");this.send(text);} });
     this.root.find(".fai-suggestions button").on("click", (event) => this.send(event.currentTarget.textContent));
-    this.root.find("#fai-agent").on("change", () => { this.session=null; this.log(__("Agent changed"),"info",this.root.find("#fai-agent").val()); });
+    this.root.find("#fai-agent").on("change", () => { this.session=null; this.log(__("Agent changed"),"info",this.root.find("#fai-agent").val()); this.test_agent_connection(); });
+    this.root.find("#fai-ai-connect").on("click", () => this.test_agent_connection());
     this.root.find("#fai-connector").on("change", () => this.connector_changed());
     this.root.find("#fai-connect-action").on("click", () => this.connector_action());
     this.root.find("#fai-upload").on("click", () => this.upload_document());
     this.root.find("#fai-clear-log").on("click", () => { this.logs=[]; this.render_logs(); });
   }
   async load_agents() {
-    try { const {message}=await frappe.call("financial_ai_agent.api.chat.available_agents"); const select=this.root.find("#fai-agent").empty(); message.forEach((agent)=>select.append(`<option value="${this.escape(agent.name)}">${this.escape(agent.name)}</option>`)); if(!message.length)this.notice(__("No enabled AI Agent exists. Configure one in the workspace.")); this.log(__("Agents loaded"),"success",__("{0} enabled",[message.length])); }
+    try { const {message}=await frappe.call("financial_ai_agent.api.chat.available_agents"); const select=this.root.find("#fai-agent").empty(); message.forEach((agent)=>select.append(`<option value="${this.escape(agent.name)}">${this.escape(agent.name)}</option>`)); if(!message.length)this.notice(__("No enabled AI Agent exists. Configure one in the workspace.")); this.log(__("Agents loaded"),"success",__("{0} enabled",[message.length])); if(message.length)this.test_agent_connection(); }
     catch(error){this.notice(this.error_text(error));this.log(__("Agent loading failed"),"error",this.error_text(error));}
+  }
+  async test_agent_connection() {
+    const agent=this.root.find("#fai-agent").val(),button=this.root.find("#fai-ai-connect"),detail=this.root.find("#fai-ai-detail"),dot=this.root.find("#fai-ai-dot"); dot.removeClass("connected");
+    if(!agent){detail.text(__("Select an agent to check its AI provider."));button.prop("disabled",true);return;}
+    button.prop("disabled",true).text(__("Checking AI…")); detail.text(__("Testing the configured provider and model…")); this.log(__("Testing AI connection"),"pending",agent);
+    try { const {message}=await frappe.call("financial_ai_agent.api.chat.test_agent_connection",{agent}); const result=message||{}; dot.toggleClass("connected",Boolean(result.ok)); detail.html(`<strong>${this.escape(result.provider||agent)}</strong><span>${this.escape(result.model||"")}</span><span class="${result.ok?"fai-success-text":"fai-error-text"}">${this.escape(result.message||__("Connection test completed."))}</span>`); button.text(result.ok?__("Retest AI Connection"):__("Connect / Retry AI")); this.log(__("AI connection test"),result.ok?"success":"error",result.message||""); }
+    catch(error){const reason=this.error_text(error);detail.html(`<span class="fai-error-text">${this.escape(reason)}</span>`);button.text(__("Connect / Retry AI"));this.log(__("AI connection test failed"),"error",reason);}
+    finally{button.prop("disabled",false);}
   }
   async load_connectors() {
     try { const {message}=await frappe.call("financial_ai_agent.api.crm.available_connectors"); this.connectors=message; const select=this.root.find("#fai-connector").empty().append(`<option value="">${__("Select CRM…")}</option>`); message.forEach((item)=>select.append(`<option value="${this.escape(item.name)}">${this.escape(item.connector_name)} · ${this.escape(item.crm_type)}</option>`)); const preferred=message.find((item)=>item.is_default)||message[0]; if(preferred)select.val(preferred.name); await this.connector_changed(); this.log(__("CRM connectors loaded"),"success",__("{0} available",[message.length])); }
