@@ -3,7 +3,14 @@ name = "financial_ai_agent"
 version = "0.1.0"
 description = "Provider-neutral financial AI agent platform for Frappe"
 requires-python = ">=3.10"
-dependencies = ["httpx>=0.27,<1", "openai>=1.99,<3", "pydantic>=2.7,<3"]
+dependencies = [
+    "httpx>=0.27,<1",
+    "openai>=1.99,<3",
+    "pydantic>=2.7,<3",
+    "pypdf>=5,<7",
+    "python-docx>=1.1,<2",
+    "openpyxl>=3.1,<4",
+]
 
 [build-system]
 requires = ["flit_core>=3.4,<4"]
@@ -14,4 +21,3 @@ frappe = ">=15.0.0-dev"
 
 [tool.ruff]
 line-length = 100
-

@@ -1,0 +1,24 @@
+{
+ "doctype":"DocType","name":"AI Document Extraction","module":"Financial AI Agent","autoname":"hash","track_changes":1,
+ "field_order":["client_document","extraction_schema","extracted_json","confidence","warnings","validation_status","human_review_status","reviewed_by","reviewed_at","model","correlation_id"],
+ "fields":[
+  {"fieldname":"client_document","label":"Client Document","fieldtype":"Link","options":"Client Document","reqd":1,"index":1},
+  {"fieldname":"extraction_schema","label":"Extraction Schema","fieldtype":"Code","options":"JSON","reqd":1},
+  {"fieldname":"extracted_json","label":"Extracted JSON","fieldtype":"Code","options":"JSON","reqd":1},
+  {"fieldname":"confidence","label":"Confidence","fieldtype":"Percent"},
+  {"fieldname":"warnings","label":"Warnings","fieldtype":"Small Text"},
+  {"fieldname":"validation_status","label":"Validation Status","fieldtype":"Select","options":"Pending\nValid\nInvalid\nValidated","default":"Pending","index":1},
+  {"fieldname":"human_review_status","label":"Human Review Status","fieldtype":"Select","options":"Pending\nApproved\nRejected","default":"Pending","index":1},
+  {"fieldname":"reviewed_by","label":"Reviewed By","fieldtype":"Link","options":"User"},
+  {"fieldname":"reviewed_at","label":"Reviewed At","fieldtype":"Datetime"},
+  {"fieldname":"model","label":"Model","fieldtype":"Link","options":"AI Model"},
+  {"fieldname":"correlation_id","label":"Correlation ID","fieldtype":"Data","index":1}
+ ],
+ "permissions":[
+  {"role":"Financial AI User","read":1},
+  {"role":"Financial AI Manager","read":1,"write":1,"create":1},
+  {"role":"Financial AI Compliance Reviewer","read":1,"write":1},
+  {"role":"System Manager","read":1,"write":1,"create":1}
+ ]
+}
+

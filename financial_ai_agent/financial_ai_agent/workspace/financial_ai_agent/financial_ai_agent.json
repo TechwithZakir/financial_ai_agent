@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"type\":\"header\",\"data\":{\"text\":\"Financial AI Agent\",\"level\":3,\"col\":12}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"AI Agents\",\"col\":4}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"AI Providers\",\"col\":4}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"AI Models\",\"col\":4}},{\"type\":\"header\",\"data\":{\"text\":\"Operations\",\"level\":4,\"col\":12}},{\"type\":\"card\",\"data\":{\"card_name\":\"AI Operations\",\"col\":6}},{\"type\":\"card\",\"data\":{\"card_name\":\"Knowledge and CRM\",\"col\":6}}]",
+ "content": "[{\"type\":\"header\",\"data\":{\"text\":\"Financial AI Agent\",\"level\":3,\"col\":12}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Open AI Assistant\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"AI Agents\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"AI Providers\",\"col\":3}},{\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"AI Models\",\"col\":3}},{\"type\":\"header\",\"data\":{\"text\":\"Operations\",\"level\":4,\"col\":12}},{\"type\":\"card\",\"data\":{\"card_name\":\"AI Operations\",\"col\":6}},{\"type\":\"card\",\"data\":{\"card_name\":\"Knowledge and CRM\",\"col\":6}}]",
  "creation": "2026-08-26 00:00:00.000000",
  "custom_blocks": [],
  "docstatus": 0,
@@ -12,13 +12,15 @@
  "is_hidden": 0,
  "label": "Financial AI Agent",
  "links": [
-  {"hidden":0,"is_query_report":0,"label":"AI Operations","link_count":6,"onboard":0,"type":"Card Break"},
+  {"hidden":0,"is_query_report":0,"label":"AI Operations","link_count":8,"onboard":0,"type":"Card Break"},
   {"hidden":0,"is_query_report":0,"label":"Agents","link_to":"AI Agent","link_type":"DocType","onboard":0,"type":"Link"},
   {"hidden":0,"is_query_report":0,"label":"Sessions","link_to":"AI Agent Session","link_type":"DocType","onboard":0,"type":"Link"},
   {"hidden":0,"is_query_report":0,"label":"Messages","link_to":"AI Message","link_type":"DocType","onboard":0,"type":"Link"},
   {"hidden":0,"is_query_report":0,"label":"Approval Requests","link_to":"AI Approval Request","link_type":"DocType","onboard":0,"type":"Link"},
   {"hidden":0,"is_query_report":0,"label":"Usage Logs","link_to":"AI Usage Log","link_type":"DocType","onboard":0,"type":"Link"},
   {"hidden":0,"is_query_report":0,"label":"CRM Connectors","link_to":"CRM Connector","link_type":"DocType","onboard":0,"type":"Link"},
+  {"hidden":0,"is_query_report":0,"label":"Client Documents","link_to":"Client Document","link_type":"DocType","onboard":0,"type":"Link"},
+  {"hidden":0,"is_query_report":0,"label":"Document Extractions","link_to":"AI Document Extraction","link_type":"DocType","onboard":0,"type":"Link"},
   {"hidden":0,"is_query_report":0,"label":"Knowledge and CRM","link_count":5,"onboard":0,"type":"Card Break"},
   {"hidden":0,"is_query_report":0,"label":"Providers","link_to":"AI Provider","link_type":"DocType","onboard":0,"type":"Link"},
   {"hidden":0,"is_query_report":0,"label":"Models","link_to":"AI Model","link_type":"DocType","onboard":0,"type":"Link"},
@@ -44,10 +46,10 @@
  ],
  "sequence_id": 45,
  "shortcuts": [
+  {"color":"Purple","label":"Open AI Assistant","type":"URL","url":"/financial-ai"},
   {"color":"Blue","doc_view":"List","label":"AI Agents","link_to":"AI Agent","type":"DocType"},
   {"color":"Orange","doc_view":"List","label":"AI Providers","link_to":"AI Provider","type":"DocType"},
   {"color":"Green","doc_view":"List","label":"AI Models","link_to":"AI Model","type":"DocType"}
  ],
  "title": "Financial AI Agent"
 }
-

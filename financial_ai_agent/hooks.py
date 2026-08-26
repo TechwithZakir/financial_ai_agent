@@ -22,6 +22,7 @@ permission_query_conditions = {
     "AI Message": "financial_ai_agent.permissions.message_query",
     "AI Approval Request": "financial_ai_agent.permissions.approval_query",
     "AI Usage Log": "financial_ai_agent.permissions.usage_query",
+    "Client Document": "financial_ai_agent.permissions.client_document_query",
 }
 
 has_permission = {
@@ -29,5 +30,5 @@ has_permission = {
     "AI Message": "financial_ai_agent.permissions.message_permission",
     "AI Approval Request": "financial_ai_agent.permissions.approval_permission",
     "AI Usage Log": "financial_ai_agent.permissions.usage_permission",
+    "Client Document": "financial_ai_agent.permissions.client_document_permission",
 }
-

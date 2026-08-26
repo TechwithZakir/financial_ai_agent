@@ -39,6 +39,10 @@ def usage_query(user=None):
     return _owned_query(user, "user").format(doctype="AI Usage Log")
 
 
+def client_document_query(user=None):
+    return _owned_query(user, "uploaded_by").format(doctype="Client Document")
+
+
 def _owned_permission(doc, user: str | None, field: str) -> bool:
     user = user or frappe.session.user
     return _is_manager(user) or getattr(doc, field, None) == user
@@ -61,4 +65,8 @@ def approval_permission(doc, user=None, **kwargs):
 
 def usage_permission(doc, user=None, **kwargs):
     return _owned_permission(doc, user, "user")
+
+
+def client_document_permission(doc, user=None, **kwargs):
+    return _owned_permission(doc, user, "uploaded_by")
 

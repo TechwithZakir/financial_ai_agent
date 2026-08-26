@@ -1,0 +1,24 @@
+{% extends "templates/web.html" %}
+{% block title %}Financial AI Assistant{% endblock %}
+{% block head_include %}
+<meta name="frappe-csrf-token" content="{{ csrf_token }}">
+<link rel="stylesheet" href="/assets/financial_ai_agent/css/financial_ai.css">
+{% endblock %}
+{% block page_content %}
+<main class="fai-shell">
+  <header class="fai-header">
+    <div><span class="fai-eyebrow">FINANCIAL INTELLIGENCE</span><h1>Financial AI Assistant</h1><p>Analyze documents, search knowledge, and prepare controlled CRM actions.</p></div>
+    <label>Agent<select id="agent">{% for agent in agents %}<option value="{{ agent.name }}">{{ agent.name }}</option>{% endfor %}</select></label>
+  </header>
+  <section id="notice" class="fai-notice" hidden></section>
+  <section id="messages" class="fai-messages" aria-live="polite">
+    <div class="fai-empty"><h2>How can I help?</h2><p>Ask a financial question or choose a prompt below.</p>
+      <div class="fai-suggestions"><button>Summarize the latest client financial position.</button><button>Identify missing documents for this application.</button><button>Search our knowledge base for the relevant policy.</button></div>
+    </div>
+  </section>
+  <form id="composer" class="fai-composer"><textarea id="message" rows="2" maxlength="20000" placeholder="Ask the financial assistant…" required></textarea><button id="send" type="submit">Send</button></form>
+  <p class="fai-disclaimer">AI output requires professional review. Sensitive actions are approval-controlled.</p>
+</main>
+<script src="/assets/financial_ai_agent/js/financial_ai.js"></script>
+{% endblock %}
+

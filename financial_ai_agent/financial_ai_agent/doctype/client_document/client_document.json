@@ -1,0 +1,25 @@
+{
+ "doctype":"DocType","name":"Client Document","module":"Financial AI Agent","autoname":"hash","track_changes":1,
+ "field_order":["client_type","client","crm_connector","crm_record_id","document_type","file","processing_status","extraction_status","confidence","uploaded_by","processing_error","correlation_id"],
+ "fields":[
+  {"fieldname":"client_type","label":"Client Type","fieldtype":"Link","options":"DocType"},
+  {"fieldname":"client","label":"Client","fieldtype":"Dynamic Link","options":"client_type"},
+  {"fieldname":"crm_connector","label":"CRM Connector","fieldtype":"Link","options":"CRM Connector"},
+  {"fieldname":"crm_record_id","label":"CRM Record ID","fieldtype":"Data"},
+  {"fieldname":"document_type","label":"Document Type","fieldtype":"Select","options":"Unclassified\nBank Statement\nPayslip\nFinancial Statements\nGeneral Financial Document\nImage","default":"Unclassified","index":1},
+  {"fieldname":"file","label":"File","fieldtype":"Attach","reqd":1},
+  {"fieldname":"processing_status","label":"Processing Status","fieldtype":"Select","options":"Uploaded\nQueued\nProcessing\nCompleted\nFailed","default":"Uploaded","index":1},
+  {"fieldname":"extraction_status","label":"Extraction Status","fieldtype":"Select","options":"Not Started\nExtracting\nReview Required\nValidated\nFailed","default":"Not Started","index":1},
+  {"fieldname":"confidence","label":"Confidence","fieldtype":"Percent","read_only":1},
+  {"fieldname":"uploaded_by","label":"Uploaded By","fieldtype":"Link","options":"User","reqd":1,"read_only":1,"index":1},
+  {"fieldname":"processing_error","label":"Processing Error","fieldtype":"Small Text","read_only":1},
+  {"fieldname":"correlation_id","label":"Correlation ID","fieldtype":"Data","read_only":1,"index":1}
+ ],
+ "permissions":[
+  {"role":"Financial AI User","read":1,"write":1,"create":1},
+  {"role":"Financial AI Manager","read":1,"write":1,"create":1,"delete":1},
+  {"role":"Financial AI Compliance Reviewer","read":1,"write":1},
+  {"role":"System Manager","read":1,"write":1,"create":1,"delete":1}
+ ]
+}
+

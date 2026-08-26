@@ -73,6 +73,11 @@ The project is intended for full production deployment, with emphasis on reliabi
 - Session chat API with ownership enforcement, audit correlation IDs, and safe errors
 - Prompt-injection detection, secret redaction, rich response blocks, RAG chunking/citations
 - Decimal-based financial calculations for ratios and cash-flow summaries
+- Background parsing for PDF, DOCX, XLSX, CSV, TXT, and Markdown documents
+- Structured financial extraction with confidence, warnings, and mandatory human review
+- Knowledge ingestion with checksums, source chunks, citations, and permission-aware search
+- Approval decision and idempotent execution endpoints with separation of duties
+- Responsive `/financial-ai` chat interface linked from the Desk workspace
 
 ## Installation
 
