@@ -10,6 +10,7 @@
 .fai-header-actions { display:flex; align-items:flex-end; gap:10px; }
 .fai-upload { min-height:40px; border:1px solid rgba(255,255,255,.45); border-radius:10px; padding:9px 14px; color:#fff; background:#ffffff18; font-weight:700; white-space:nowrap; cursor:pointer; }
 .fai-upload:hover { background:#ffffff2b; }
+.fai-upload.is-connected { border-color:#86efac; color:#dcfce7; background:#16653480; }
 .fai-document-status { margin-top:12px; padding:12px 15px; border:1px solid #bfdbfe; border-radius:11px; background:#eff6ff; color:#1e3a8a; }
 .fai-messages { min-height:430px; max-height:62vh; overflow:auto; margin-top:18px; padding:24px; border:1px solid var(--fai-border); border-radius:18px; background:white; }
 .fai-empty { max-width:720px; margin:70px auto; text-align:center; }

@@ -17,6 +17,7 @@ class FinancialAIDeskPage {
     this.render();
     this.bind();
     this.load_agents();
+    this.load_salesforce_status();
   }
 
   escape(value) {
@@ -33,6 +34,7 @@ class FinancialAIDeskPage {
             <p>${__("Analyze documents, search knowledge, and prepare controlled CRM actions.")}</p>
           </div>
           <div class="fai-header-actions">
+            <button id="fai-salesforce" class="fai-upload" type="button" hidden>${__("Connect Salesforce")}</button>
             <button id="fai-upload" class="fai-upload" type="button">${__("Upload Document")}</button>
             <label>${__("Agent")}<select id="fai-agent"><option value="">${__("Loading agents…")}</option></select></label>
           </div>
@@ -68,6 +70,7 @@ class FinancialAIDeskPage {
     this.root.find(".fai-suggestions button").on("click", (event) => this.send(event.currentTarget.textContent));
     this.root.find("#fai-agent").on("change", () => { this.session = null; });
     this.root.find("#fai-upload").on("click", () => this.upload_document());
+    this.root.find("#fai-salesforce").on("click", () => this.toggle_salesforce());
   }
 
   upload_document() {
@@ -122,6 +125,37 @@ class FinancialAIDeskPage {
       select.empty();
       message.forEach((agent) => select.append(`<option value="${this.escape(agent.name)}">${this.escape(agent.name)}</option>`));
       if (!message.length) this.notice(__("No enabled AI Agent exists. Create and configure one from this workspace."));
+    } catch (error) {
+      this.notice(this.error_text(error));
+    }
+  }
+
+  async load_salesforce_status() {
+    const button = this.root.find("#fai-salesforce");
+    try {
+      const { message } = await frappe.call("financial_ai_agent.api.crm.salesforce_status");
+      this.salesforce = message;
+      if (!message.installed) return;
+      button.prop("hidden", false)
+        .text(message.connected ? __("Salesforce Connected") : __("Connect Salesforce"))
+        .toggleClass("is-connected", Boolean(message.connected));
+      if (message.message && !message.connected) button.attr("title", message.message);
+    } catch (error) {
+      button.prop("hidden", false).text(__("Salesforce Unavailable")).prop("disabled", true);
+    }
+  }
+
+  async toggle_salesforce() {
+    if (this.salesforce?.connected) {
+      frappe.confirm(__("Disconnect your Salesforce account?"), async () => {
+        await frappe.call("financial_ai_agent.api.crm.disconnect_salesforce");
+        await this.load_salesforce_status();
+      });
+      return;
+    }
+    try {
+      const { message } = await frappe.call("financial_ai_agent.api.crm.start_salesforce_oauth");
+      window.location.assign(message.authorization_url);
     } catch (error) {
       this.notice(this.error_text(error));
     }
