@@ -7,6 +7,20 @@ from financial_ai_agent.api.chat import _require_user
 
 
 @frappe.whitelist()
+def create_and_queue(file_url: str):
+    user = _require_user()
+    file_doc = frappe.get_doc("File", {"file_url": file_url})
+    file_doc.check_permission("read")
+    if file_doc.is_folder:
+        frappe.throw("A document file is required")
+    document = frappe.get_doc({
+        "doctype": "Client Document", "file": file_url, "uploaded_by": user,
+        "processing_status": "Uploaded", "extraction_status": "Not Started",
+    }).insert()
+    return queue_client_document(document.name)
+
+
+@frappe.whitelist()
 def queue_client_document(document: str):
     user = _require_user()
     doc = frappe.get_doc("Client Document", document)
@@ -22,6 +36,20 @@ def queue_client_document(document: str):
         job_id=f"financial-ai-client-document-{doc.name}", deduplicate=True,
     )
     return {"queued": True, "document": doc.name}
+
+
+@frappe.whitelist()
+def get_status(document: str):
+    _require_user()
+    doc = frappe.get_doc("Client Document", document)
+    doc.check_permission("read")
+    return {
+        "processing_status": doc.processing_status,
+        "extraction_status": doc.extraction_status,
+        "document_type": doc.document_type,
+        "confidence": doc.confidence,
+        "error": doc.processing_error,
+    }
 
 
 @frappe.whitelist()

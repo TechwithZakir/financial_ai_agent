@@ -1,0 +1,18 @@
+SYNTHETIC TEST DATA - NOT A REAL PAYSLIP
+Employer: Northstar Trading Ltd.
+Employee: Amina Rahman
+Employee ID: DEMO-EMP-001
+Pay period: November 2025
+Currency: BDT
+
+Basic salary: 85,000.00
+Housing allowance: 25,500.00
+Transport allowance: 8,000.00
+Gross pay: 118,500.00
+Income tax: 9,250.00
+Provident fund: 4,250.00
+Other deductions: 1,000.00
+Net pay: 104,000.00
+
+This file contains fictional names and amounts for Financial AI Agent testing.
+

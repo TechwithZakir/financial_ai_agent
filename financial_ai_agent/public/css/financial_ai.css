@@ -1,11 +1,16 @@
 :root { --fai-ink:#172033; --fai-muted:#667085; --fai-blue:#2563eb; --fai-border:#dbe2ea; --fai-bg:#f4f7fb; }
 .fai-shell { max-width:1080px; margin:32px auto; padding:0 20px; color:var(--fai-ink); }
 .fai-header { display:flex; justify-content:space-between; gap:24px; align-items:flex-end; padding:28px; border-radius:20px; color:white; background:linear-gradient(135deg,#14213d,#2454a6); box-shadow:0 18px 50px rgba(20,33,61,.18); }
-.fai-header h1 { margin:4px 0; font-size:clamp(1.8rem,4vw,3rem); letter-spacing:-.03em; }
+.fai-header h1,.fai-desk-page .fai-header h1 { margin:4px 0; font-size:clamp(1.8rem,4vw,3rem); letter-spacing:-.03em; color:#fff !important; }
 .fai-header p { margin:0; color:#dbeafe; }
 .fai-eyebrow { font-size:.72rem; font-weight:700; letter-spacing:.16em; color:#93c5fd; }
 .fai-header label { min-width:220px; font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; }
 .fai-header select { display:block; width:100%; margin-top:7px; border:1px solid rgba(255,255,255,.3); border-radius:10px; padding:10px 12px; color:white; background:#ffffff18; }
+.fai-header select option { color:#172033; background:#fff; }
+.fai-header-actions { display:flex; align-items:flex-end; gap:10px; }
+.fai-upload { min-height:40px; border:1px solid rgba(255,255,255,.45); border-radius:10px; padding:9px 14px; color:#fff; background:#ffffff18; font-weight:700; white-space:nowrap; cursor:pointer; }
+.fai-upload:hover { background:#ffffff2b; }
+.fai-document-status { margin-top:12px; padding:12px 15px; border:1px solid #bfdbfe; border-radius:11px; background:#eff6ff; color:#1e3a8a; }
 .fai-messages { min-height:430px; max-height:62vh; overflow:auto; margin-top:18px; padding:24px; border:1px solid var(--fai-border); border-radius:18px; background:white; }
 .fai-empty { max-width:720px; margin:70px auto; text-align:center; }
 .fai-empty h2 { margin-bottom:5px; font-size:1.7rem; }
@@ -26,5 +31,5 @@
 .fai-notice { margin-top:14px; padding:12px 15px; border:1px solid #f7c948; border-radius:11px; background:#fff8db; }
 .fai-disclaimer { margin:10px 4px; font-size:.78rem; text-align:center; }
 @keyframes fai-pulse { 50% { opacity:.45; } }
-@media (max-width:720px) { .fai-shell{margin:12px auto;padding:0 10px}.fai-header{align-items:stretch;flex-direction:column;padding:20px}.fai-header label{min-width:0}.fai-suggestions{grid-template-columns:1fr}.fai-messages{min-height:380px;padding:14px}.fai-bubble{max-width:94%} }
+@media (max-width:720px) { .fai-shell{margin:12px auto;padding:0 10px}.fai-header{align-items:stretch;flex-direction:column;padding:20px}.fai-header-actions{align-items:stretch;flex-direction:column}.fai-header label{min-width:0}.fai-suggestions{grid-template-columns:1fr}.fai-messages{min-height:380px;padding:14px}.fai-bubble{max-width:94%} }
 

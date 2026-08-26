@@ -1,5 +1,6 @@
 include README.md
 include license.txt
 recursive-include financial_ai_agent *.css *.csv *.html *.ico *.js *.json *.md *.png *.py *.svg *.txt
+recursive-include sample_data *.csv *.docx *.md *.pdf *.txt *.xlsx
+recursive-include docs *.md
 recursive-exclude financial_ai_agent __pycache__ *.pyc
-

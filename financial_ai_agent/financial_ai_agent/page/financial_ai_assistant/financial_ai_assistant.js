@@ -32,9 +32,13 @@ class FinancialAIDeskPage {
             <h1>${__("Financial AI Assistant")}</h1>
             <p>${__("Analyze documents, search knowledge, and prepare controlled CRM actions.")}</p>
           </div>
-          <label>${__("Agent")}<select id="fai-agent"><option value="">${__("Loading agents…")}</option></select></label>
+          <div class="fai-header-actions">
+            <button id="fai-upload" class="fai-upload" type="button">${__("Upload Document")}</button>
+            <label>${__("Agent")}<select id="fai-agent"><option value="">${__("Loading agents…")}</option></select></label>
+          </div>
         </header>
         <section id="fai-notice" class="fai-notice" hidden></section>
+        <section id="fai-document-status" class="fai-document-status" hidden></section>
         <section id="fai-messages" class="fai-messages" aria-live="polite">
           <div class="fai-empty"><h2>${__("How can I help?")}</h2>
             <p>${__("Ask a financial question or choose a prompt below.")}</p>
@@ -63,6 +67,52 @@ class FinancialAIDeskPage {
     });
     this.root.find(".fai-suggestions button").on("click", (event) => this.send(event.currentTarget.textContent));
     this.root.find("#fai-agent").on("change", () => { this.session = null; });
+    this.root.find("#fai-upload").on("click", () => this.upload_document());
+  }
+
+  upload_document() {
+    new frappe.ui.FileUploader({
+      allow_multiple: false,
+      restrictions: {
+        allowed_file_types: [".pdf", ".docx", ".xlsx", ".csv", ".txt", ".md", ".png", ".jpg", ".jpeg"],
+        max_file_size: 25 * 1024 * 1024,
+      },
+      on_success: async (file) => {
+        try {
+          const { message } = await frappe.call("financial_ai_agent.api.documents.create_and_queue", {
+            file_url: file.file_url,
+          });
+          this.document_status(__("Uploaded and queued: {0}", [file.file_name]));
+          this.poll_document(message.document);
+        } catch (error) {
+          this.document_status(this.error_text(error), true);
+        }
+      },
+    });
+  }
+
+  async poll_document(name) {
+    for (let attempt = 0; attempt < 90; attempt += 1) {
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+      try {
+        const { message } = await frappe.call("financial_ai_agent.api.documents.get_status", { document: name });
+        this.document_status(__("Document {0}: {1} / {2}", [name, message.processing_status, message.extraction_status]));
+        if (["Completed", "Failed"].includes(message.processing_status)) {
+          if (message.processing_status === "Completed") {
+            this.root.find("#fai-message").val(__("Analyze uploaded document {0} and summarize the findings.", [name]));
+          }
+          return;
+        }
+      } catch (error) {
+        this.document_status(this.error_text(error), true); return;
+      }
+    }
+    this.document_status(__("Processing continues in the background. Open Client Documents for status."));
+  }
+
+  document_status(text, is_error = false) {
+    const element = this.root.find("#fai-document-status");
+    element.text(text).prop("hidden", !text).css({ borderColor: is_error ? "#fca5a5" : "#bfdbfe", background: is_error ? "#fef2f2" : "#eff6ff" });
   }
 
   async load_agents() {
@@ -118,4 +168,3 @@ class FinancialAIDeskPage {
     return error.message || __("The request failed.");
   }
 }
-

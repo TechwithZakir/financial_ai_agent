@@ -1,0 +1,10 @@
+date,description,reference,amount,balance,currency
+2025-11-01,Opening balance,OPEN,0.00,1850000.00,BDT
+2025-11-03,Customer receipt - Orion Retail,CR-1042,1250000.00,3100000.00,BDT
+2025-11-05,Supplier payment - Delta Textiles,SP-883,-680000.00,2420000.00,BDT
+2025-11-10,Payroll,PAY-NOV,-420000.00,2000000.00,BDT
+2025-11-14,Customer receipt - Meridian Stores,CR-1057,910000.00,2910000.00,BDT
+2025-11-18,Loan repayment,LN-221,-275000.00,2635000.00,BDT
+2025-11-25,Utilities and rent,OPEX-77,-185000.00,2450000.00,BDT
+2025-11-30,Bank charges,BANK,-12500.00,2437500.00,BDT
+

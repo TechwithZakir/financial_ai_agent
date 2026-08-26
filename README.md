@@ -117,3 +117,7 @@ bench --site development.localhost run-tests --app financial_ai_agent
 ```
 
 Live provider and CRM connection tests require separately configured credentials. Automated unit tests do not call external services.
+
+For complete demo setup, sample-file expectations, and acceptance tests, see
+[`docs/TESTING_AND_SETUP.md`](docs/TESTING_AND_SETUP.md). Current implementation coverage and
+deployment-dependent items are documented in [`docs/IMPLEMENTATION_STATUS.md`](docs/IMPLEMENTATION_STATUS.md).
