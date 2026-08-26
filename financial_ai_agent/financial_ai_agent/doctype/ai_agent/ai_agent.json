@@ -1,16 +1,20 @@
 {
  "doctype":"DocType","name":"AI Agent","module":"Financial AI Agent","autoname":"field:agent_name","track_changes":1,
- "field_order":["agent_name","enabled","description","system_instruction","default_model","reasoning_model","fast_model","vision_model","embedding_model","allow_user_model_selection","require_approval","max_tool_calls","memory_enabled"],
+ "field_order":["agent_name","enabled","description","system_instruction","models_section","default_model","reasoning_model","fast_model","vision_model","embedding_model","integrations_section","default_crm_connector","knowledge_base","allow_user_model_selection","require_approval","max_tool_calls","memory_enabled"],
  "fields":[
   {"fieldname":"agent_name","label":"Agent Name","fieldtype":"Data","reqd":1,"unique":1},
   {"fieldname":"enabled","label":"Enabled","fieldtype":"Check","default":"1"},
   {"fieldname":"description","label":"Description","fieldtype":"Small Text"},
   {"fieldname":"system_instruction","label":"System Instruction","fieldtype":"Text Editor","reqd":1},
-  {"fieldname":"default_model","label":"Default Model","fieldtype":"Link","options":"AI Model"},
+  {"fieldname":"models_section","label":"Models","fieldtype":"Section Break"},
+  {"fieldname":"default_model","label":"Default Model","fieldtype":"Link","options":"AI Model","reqd":1},
   {"fieldname":"reasoning_model","label":"Reasoning Model","fieldtype":"Link","options":"AI Model"},
   {"fieldname":"fast_model","label":"Fast Model","fieldtype":"Link","options":"AI Model"},
   {"fieldname":"vision_model","label":"Vision Model","fieldtype":"Link","options":"AI Model"},
   {"fieldname":"embedding_model","label":"Embedding Model","fieldtype":"Link","options":"AI Model"},
+  {"fieldname":"integrations_section","label":"Integrations","fieldtype":"Section Break"},
+  {"fieldname":"default_crm_connector","label":"Default CRM Connector","fieldtype":"Link","options":"CRM Connector"},
+  {"fieldname":"knowledge_base","label":"Default Knowledge Base","fieldtype":"Link","options":"AI Knowledge Base"},
   {"fieldname":"allow_user_model_selection","label":"Allow User Model Selection","fieldtype":"Check","default":"0"},
   {"fieldname":"require_approval","label":"Require Approval for Sensitive Actions","fieldtype":"Check","default":"1"},
   {"fieldname":"max_tool_calls","label":"Maximum Tool Calls","fieldtype":"Int","default":"8"},
@@ -18,4 +22,3 @@
  ],
  "permissions":[{"role":"Financial AI User","read":1},{"role":"Financial AI Manager","read":1,"write":1,"create":1,"delete":1},{"role":"System Manager","read":1,"write":1,"create":1,"delete":1}]
 }
-
