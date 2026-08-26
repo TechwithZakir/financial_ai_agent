@@ -1,6 +1,65 @@
 # Financial AI Agent
 
-`financial_ai_agent` is a separate Frappe v15+ application for a provider-neutral financial-services AI platform. It does not modify the existing `salesforce_mcp_ai` app.
+Project Summary
+
+This project delivers a production-ready, enterprise-focused **AI Agent Platform built on Frappe Framework** for financial services and other data-intensive business operations.
+
+The platform is designed to automate client interactions, financial document analysis, internal knowledge retrieval, lead qualification, CRM operations, follow-up activities, and repetitive back-office processes through a secure and extensible agentic AI architecture.
+
+Unlike a traditional chatbot, the system combines **AI reasoning, Retrieval-Augmented Generation (RAG), structured document intelligence, tool calling, workflow automation, CRM integrations, human approvals, and auditability** within a single Frappe application.
+
+The platform initially integrates with:
+
+* **Frappe CRM**
+* **Salesforce Headless 360 / Salesforce Hosted MCP**
+
+Its CRM integration layer is provider-independent, allowing future connectors such as HubSpot, Zoho CRM, Microsoft Dynamics 365, and custom CRM platforms to be added without redesigning the AI core.
+
+The AI model layer is also fully provider-independent. Organizations can configure and route workloads across:
+
+* OpenAI
+* Anthropic Claude
+* Google Gemini
+* Alibaba Cloud Qwen
+* Private or hosted OpenAI-compatible AI services
+* Self-hosted AI platforms such as vLLM or other enterprise inference gateways
+
+Different models can be assigned to different workloads, such as reasoning, document analysis, tool calling, vision, fast-response tasks, and embeddings. Provider fallback, capability routing, token usage tracking, and sensitive-data policies are incorporated into the architecture.
+
+The application supports intelligent processing of financial and business documents including PDFs, spreadsheets, scanned documents, bank statements, payslips, financial statements, and other uploaded files. AI performs classification and structured extraction, while deterministic Python logic is used for financial calculations, validation, scoring, ratios, and other operations where accuracy is critical.
+
+An integrated RAG engine enables users to securely query internal policies, procedures, product documentation, compliance guidelines, and organizational knowledge. Responses can include traceable source references rather than relying only on general model knowledge.
+
+The agent can securely interact with connected CRM systems through a controlled tool registry. Typical capabilities include searching leads, accounts, contacts, and opportunities, reviewing client activity, preparing CRM notes, qualifying leads, creating follow-up tasks, and proposing record updates. Sensitive or higher-risk operations can require explicit human approval before execution.
+
+A key feature of the platform is its **structured rich-response framework**. AI responses are not limited to plain text. The interface can dynamically render:
+
+* KPI cards
+* Responsive tables
+* Bar, line, pie, and other supported charts
+* Financial summaries
+* CRM record cards
+* Status indicators
+* Alerts
+* Recommendations
+* Knowledge citations
+* Timelines
+* Approval requests
+* Interactive action buttons
+
+The responsive AI Assistant interface is designed for desktop, tablet, and mobile use within Frappe Desk.
+
+Security and governance are fundamental to the platform. The architecture includes role-based permissions, encrypted credentials, provider-level data policies, controlled tool execution, prompt-injection defenses, per-user/session isolation, audit logs, correlation IDs, approval workflows, and protection against unauthorized CRM or financial actions.
+
+The system is designed as a reusable AI platform rather than a customer-specific automation script. Frappe provides the application, workflow, permissions, configuration, background processing, audit, and user-management foundation, while AI providers, CRM providers, vector databases, and external services operate through modular adapters.
+
+The result is a scalable foundation for building secure AI-powered business automation across financial services and, later, industries such as manufacturing, healthcare, real estate, professional services, nonprofit organizations, and enterprise operations.
+
+The core architectural principle is:
+
+**Frappe as the AI Platform → Provider-independent AI Models → Intelligent Agents and RAG → Controlled Tool Execution → Multi-CRM Integrations → Human Governance → Rich Business UI.**
+
+The project is intended for full production deployment, with emphasis on reliability, security, maintainability, extensibility, automated testing, background processing, monitoring, migration safety, and minimal post-deployment debugging.
 
 ## Implemented architecture
 
