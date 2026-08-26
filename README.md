@@ -26,6 +26,19 @@ bench build --app financial_ai_agent
 bench restart
 ```
 
+After pulling an update, synchronize DocTypes and Desk metadata:
+
+```bash
+bench --site yoursite migrate
+bench --site yoursite clear-cache
+bench build --app financial_ai_agent
+bench restart
+```
+
+If the app was installed from a package created before `MANIFEST.in` was added, update/reinstall
+the app package first, then run the commands above. Do not manually create the Module Def; Frappe
+creates and synchronizes it from `modules.txt` during installation/migration.
+
 Assign `Financial AI User` to users, `Financial AI Manager` to platform administrators, and `Financial AI Compliance Reviewer` to approval reviewers. Configure an **AI Provider**, one or more **AI Model** records, and an enabled **AI Agent** before calling the chat API.
 
 ## Chat API
@@ -40,4 +53,3 @@ bench --site development.localhost run-tests --app financial_ai_agent
 ```
 
 Live provider and CRM connection tests require separately configured credentials. Automated unit tests do not call external services.
-
