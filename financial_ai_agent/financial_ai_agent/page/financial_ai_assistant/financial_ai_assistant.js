@@ -1,6 +1,6 @@
 frappe.pages["financial-ai-assistant"].on_page_load = function (wrapper) {
   const page = frappe.ui.make_app_page({ parent: wrapper, title: __("Financial AI Assistant"), single_column: true });
-  const stylesheet = "/assets/financial_ai_agent/css/financial_ai.css?v=20260826-crm-workspace-2";
+  const stylesheet = "/assets/financial_ai_agent/css/financial_ai.css?v=20260826-crm-workspace-3";
   const existing = document.querySelector('link[data-financial-ai-styles]');
   if (existing) {
     new FinancialAIDeskPage(page);
@@ -24,11 +24,14 @@ class FinancialAIDeskPage {
   render() {
     this.page.main.addClass("fai-desk-page").html(`
       <main class="fai-shell">
-        <header class="fai-header"><div><span class="fai-eyebrow">${__("FINANCIAL INTELLIGENCE")}</span><h1>${__("Financial AI Assistant")}</h1><p>${__("Analyze documents, search knowledge, and execute controlled CRM workflows.")}</p></div>
-          <div class="fai-header-actions"><button id="fai-upload" class="fai-upload" type="button">${__("Upload Document")}</button><label>${__("Agent")}<select id="fai-agent"><option value="">${__("Loading agents…")}</option></select></label></div></header>
+        <header class="fai-header"><div><span class="fai-eyebrow">${__("FINANCIAL INTELLIGENCE")}</span><h1>${__("Financial AI Assistant")}</h1><p>${__("Analyze documents, search knowledge, and execute controlled CRM workflows.")}</p></div></header>
         <section id="fai-notice" class="fai-notice" hidden></section>
         <div class="fai-workspace-grid">
           <aside class="fai-sidebar">
+            <section class="fai-side-card fai-setup-card"><div class="fai-card-heading"><div><span class="fai-card-kicker">${__("ASSISTANT")}</span><h3>${__("Session Setup")}</h3></div></div>
+              <label class="fai-field">${__("Agent")}<select id="fai-agent"><option value="">${__("Loading agents…")}</option></select></label>
+              <button id="fai-upload" class="fai-primary-action fai-side-upload" type="button">${__("Upload Document")}</button>
+            </section>
             <section class="fai-side-card"><div class="fai-card-heading"><div><span class="fai-card-kicker">${__("INTEGRATION")}</span><h3>${__("CRM Connection")}</h3></div><span id="fai-crm-dot" class="fai-status-dot"></span></div>
               <label class="fai-field">${__("CRM Connector")}<select id="fai-connector"><option value="">${__("Loading connectors…")}</option></select></label>
               <div id="fai-connector-detail" class="fai-connector-detail">${__("Choose an enabled connector.")}</div><button id="fai-connect-action" class="fai-primary-action" type="button" disabled>${__("Select CRM")}</button>
@@ -72,7 +75,7 @@ class FinancialAIDeskPage {
   async connector_action() {
     const connector=this.selected_connector(); if(!connector)return;
     if(connector.crm_type==="Salesforce Headless 360") { if(this.salesforce?.connected){frappe.confirm(__("Disconnect your Salesforce account?"),async()=>{await frappe.call("financial_ai_agent.api.crm.disconnect_salesforce");this.log(__("Salesforce disconnected"),"info");this.connector_changed();});return;} try { const {message}=await frappe.call("financial_ai_agent.api.crm.start_salesforce_oauth"); this.log(__("Starting Salesforce OAuth"),"pending"); window.location.assign(message.authorization_url); } catch(error){this.notice(this.error_text(error));this.log(__("Salesforce connection failed"),"error",this.error_text(error));} return; }
-    try { this.log(__("Testing CRM connection"),"pending",connector.connector_name); const {message}=await frappe.call("financial_ai_agent.api.crm.test_connection",{connector:connector.name}); this.root.find("#fai-crm-dot").toggleClass("connected",Boolean(message.ok)); this.log(__("CRM connection test"),message.ok?"success":"error",message.ok?__("Connection successful"):__("Connection unavailable")); }
+    try { this.log(__("Testing CRM connection"),"pending",connector.connector_name); const {message}=await frappe.call("financial_ai_agent.api.crm.test_connection",{connector:connector.name}); const result=message||{}; this.root.find("#fai-crm-dot").toggleClass("connected",Boolean(result.ok)); const diagnostic=result.message||(result.ok?__("Connection successful"):__("Connection unavailable. Verify the connector app and configuration.")); this.root.find("#fai-connector-detail .fai-test-result").remove(); this.root.find("#fai-connector-detail").append(`<span class="fai-test-result ${result.ok?"fai-success-text":"fai-error-text"}">${this.escape(diagnostic)}</span>`); this.log(__("CRM connection test"),result.ok?"success":"error",diagnostic); }
     catch(error){this.log(__("CRM connection test failed"),"error",this.error_text(error));this.notice(this.error_text(error));}
   }
   upload_document() { new frappe.ui.FileUploader({allow_multiple:false,restrictions:{allowed_file_types:[".pdf",".docx",".xlsx",".csv",".txt",".md",".png",".jpg",".jpeg"],max_file_size:25*1024*1024},on_success:async(file)=>{try{this.log(__("File uploaded"),"success",file.file_name);const {message}=await frappe.call("financial_ai_agent.api.documents.create_and_queue",{file_url:file.file_url});this.document_status(__("Uploaded and queued: {0}",[file.file_name]));this.poll_document(message.document);}catch(error){this.document_status(this.error_text(error),true);this.log(__("Document queue failed"),"error",this.error_text(error));}}}); }

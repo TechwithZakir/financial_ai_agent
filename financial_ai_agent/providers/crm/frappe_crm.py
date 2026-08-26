@@ -57,5 +57,13 @@ class FrappeCRMProvider(BaseCRMProvider):
         return self.create("Note", {"title": f"{object_type} {record_id}", "content": note})
 
     def test_connection(self):
-        return {"ok": bool(frappe.db.exists("DocType", "CRM Lead")), "mode": "local"}
-
+        available = bool(frappe.db.exists("DocType", "CRM Lead"))
+        return {
+            "ok": available,
+            "mode": "local",
+            "message": (
+                "Frappe CRM is available on this site."
+                if available else
+                "CRM Lead DocType was not found. Install and migrate the Frappe CRM app first."
+            ),
+        }
