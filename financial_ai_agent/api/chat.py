@@ -17,13 +17,16 @@ def _require_user() -> str:
 
 @frappe.whitelist()
 def chat(message: str, agent: str, session: str | None = None,
-         model: str | None = None, classification: str = "Internal"):
+         model: str | None = None, classification: str = "Internal",
+         crm_connector: str | None = None):
     user = _require_user()
     message = (message or "").strip()
     if not message or len(message) > 20000:
         frappe.throw("Message must contain between 1 and 20,000 characters")
     try:
-        return FinancialAIOrchestrator(agent, user).run(message, session, model, classification)
+        return FinancialAIOrchestrator(agent, user).run(
+            message, session, model, classification, crm_connector=crm_connector
+        )
     except frappe.ValidationError:
         raise
     except Exception:

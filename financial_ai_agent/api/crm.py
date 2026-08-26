@@ -24,6 +24,17 @@ def test_connection(connector: str):
 
 
 @frappe.whitelist()
+def available_connectors():
+    _require_user()
+    return frappe.get_all(
+        "CRM Connector", filters={"enabled": 1},
+        fields=["name", "connector_name", "crm_type", "mode", "is_default",
+                "read_enabled", "create_enabled", "update_enabled"],
+        order_by="is_default desc, connector_name asc",
+    )
+
+
+@frappe.whitelist()
 def salesforce_status():
     _require_user()
     if "salesforce_mcp_ai" not in frappe.get_installed_apps():
