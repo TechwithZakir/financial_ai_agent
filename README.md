@@ -78,7 +78,7 @@ The project is intended for full production deployment, with emphasis on reliabi
 
 ```bash
 cd ~/frappe-bench
-bench get-app /path/to/financial_ai_agent
+bench get-app https://github.com/TechwithZakir/financial_ai_agent.git
 bench --site yoursite install-app financial_ai_agent
 bench --site yoursite migrate
 bench build --app financial_ai_agent
