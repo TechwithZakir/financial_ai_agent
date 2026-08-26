@@ -106,12 +106,16 @@ def _demo_files(knowledge_base: str) -> list[dict]:
         if existing:
             created.append({"type": "Client Document", "name": existing})
             continue
-        file_doc = save_file(filename, path.read_bytes(), "Client Document", None, is_private=1)
+        file_doc = save_file(filename, path.read_bytes(), None, None, is_private=1)
         document = frappe.get_doc({
             "doctype": "Client Document", "file": file_doc.file_url,
             "uploaded_by": frappe.session.user, "document_type": "Unclassified",
             "processing_status": "Uploaded", "extraction_status": "Not Started",
         }).insert(ignore_permissions=True)
+        frappe.db.set_value("File", file_doc.name, {
+            "attached_to_doctype": "Client Document", "attached_to_name": document.name,
+            "attached_to_field": "file",
+        }, update_modified=False)
         created.append({"type": "Client Document", "name": document.name})
     policy = sample_dir / "synthetic_credit_policy.md"
     if policy.is_file():
@@ -119,12 +123,16 @@ def _demo_files(knowledge_base: str) -> list[dict]:
         if existing:
             created.append({"type": "AI Knowledge Document", "name": existing})
         else:
-            file_doc = save_file(policy.name, policy.read_bytes(), "AI Knowledge Document", None, is_private=1)
+            file_doc = save_file(policy.name, policy.read_bytes(), None, None, is_private=1)
             document = frappe.get_doc({
                 "doctype": "AI Knowledge Document", "knowledge_base": knowledge_base,
                 "file": file_doc.file_url, "title": "Synthetic SME Credit Policy",
                 "document_type": "Markdown", "version": "1.0", "status": "Uploaded",
             }).insert(ignore_permissions=True)
+            frappe.db.set_value("File", file_doc.name, {
+                "attached_to_doctype": "AI Knowledge Document", "attached_to_name": document.name,
+                "attached_to_field": "file",
+            }, update_modified=False)
             created.append({"type": "AI Knowledge Document", "name": document.name})
     return created
 
