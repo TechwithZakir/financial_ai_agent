@@ -1,0 +1,20 @@
+{
+ "doctype":"DocType","name":"AI Model","module":"Financial AI Agent","autoname":"field:model_name","track_changes":1,
+ "field_order":["model_name","provider","model_id","enabled","priority","capabilities","allowed_data_classes","context_window","max_output_tokens","fallback_model","input_price","output_price"],
+ "fields":[
+  {"fieldname":"model_name","label":"Model Name","fieldtype":"Data","reqd":1,"unique":1},
+  {"fieldname":"provider","label":"Provider","fieldtype":"Link","options":"AI Provider","reqd":1},
+  {"fieldname":"model_id","label":"Provider Model ID","fieldtype":"Data","reqd":1},
+  {"fieldname":"enabled","label":"Enabled","fieldtype":"Check","default":"1"},
+  {"fieldname":"priority","label":"Routing Priority","fieldtype":"Int","default":"100"},
+  {"fieldname":"capabilities","label":"Capabilities","fieldtype":"Small Text","description":"One per line: chat, tools, vision, structured_output, embeddings, reasoning, streaming"},
+  {"fieldname":"allowed_data_classes","label":"Allowed Data Classes","fieldtype":"Small Text","description":"One per line; blank denies no classifications."},
+  {"fieldname":"context_window","label":"Context Window","fieldtype":"Int","default":"128000","reqd":1},
+  {"fieldname":"max_output_tokens","label":"Max Output Tokens","fieldtype":"Int","default":"4000"},
+  {"fieldname":"fallback_model","label":"Fallback Model","fieldtype":"Link","options":"AI Model"},
+  {"fieldname":"input_price","label":"Input Price / Million Tokens","fieldtype":"Currency"},
+  {"fieldname":"output_price","label":"Output Price / Million Tokens","fieldtype":"Currency"}
+ ],
+ "permissions":[{"role":"Financial AI Manager","read":1,"write":1,"create":1,"delete":1},{"role":"System Manager","read":1,"write":1,"create":1,"delete":1}]
+}
+

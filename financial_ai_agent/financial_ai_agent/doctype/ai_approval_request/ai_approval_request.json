@@ -1,0 +1,28 @@
+{
+ "doctype":"DocType","name":"AI Approval Request","module":"Financial AI Agent","autoname":"hash","track_changes":1,
+ "field_order":["action","session","requested_by","tool","target_type","target_name","proposed_changes","explanation","risk_level","status","requested_at","reviewed_by","reviewed_at","execution_result","correlation_id"],
+ "fields":[
+  {"fieldname":"action","label":"Action","fieldtype":"Data","reqd":1},
+  {"fieldname":"session","label":"Session","fieldtype":"Link","options":"AI Agent Session","reqd":1,"index":1},
+  {"fieldname":"requested_by","label":"Requested By","fieldtype":"Link","options":"User","reqd":1,"index":1},
+  {"fieldname":"tool","label":"Tool","fieldtype":"Data","reqd":1},
+  {"fieldname":"target_type","label":"Target Type","fieldtype":"Data"},
+  {"fieldname":"target_name","label":"Target Name","fieldtype":"Data"},
+  {"fieldname":"proposed_changes","label":"Proposed Changes","fieldtype":"JSON","reqd":1},
+  {"fieldname":"explanation","label":"Explanation","fieldtype":"Small Text"},
+  {"fieldname":"risk_level","label":"Risk Level","fieldtype":"Select","options":"Green\nAmber\nRed\nProhibited","reqd":1},
+  {"fieldname":"status","label":"Status","fieldtype":"Select","options":"Pending\nApproved\nRejected\nExpired\nExecuted\nFailed","default":"Pending","index":1},
+  {"fieldname":"requested_at","label":"Requested At","fieldtype":"Datetime","reqd":1},
+  {"fieldname":"reviewed_by","label":"Reviewed By","fieldtype":"Link","options":"User"},
+  {"fieldname":"reviewed_at","label":"Reviewed At","fieldtype":"Datetime"},
+  {"fieldname":"execution_result","label":"Execution Result","fieldtype":"JSON"},
+  {"fieldname":"correlation_id","label":"Correlation ID","fieldtype":"Data","index":1}
+ ],
+ "permissions":[
+  {"role":"Financial AI User","read":1,"create":1},
+  {"role":"Financial AI Manager","read":1,"write":1,"create":1},
+  {"role":"Financial AI Compliance Reviewer","read":1,"write":1},
+  {"role":"System Manager","read":1,"write":1,"create":1}
+ ]
+}
+

@@ -1,0 +1,16 @@
+{
+ "doctype":"DocType","name":"AI Provider","module":"Financial AI Agent","autoname":"field:provider_name","track_changes":1,
+ "field_order":["provider_name","provider_type","enabled","api_key","base_url","timeout","retries","configuration_json"],
+ "fields":[
+  {"fieldname":"provider_name","label":"Provider Name","fieldtype":"Data","reqd":1,"unique":1},
+  {"fieldname":"provider_type","label":"Provider Type","fieldtype":"Select","options":"OpenAI\nAnthropic\nGoogle Gemini\nAlibaba Qwen\nOpenAI Compatible\nHosted AI","reqd":1},
+  {"fieldname":"enabled","label":"Enabled","fieldtype":"Check","default":"1"},
+  {"fieldname":"api_key","label":"API Key","fieldtype":"Password"},
+  {"fieldname":"base_url","label":"Base URL","fieldtype":"Data"},
+  {"fieldname":"timeout","label":"Timeout (seconds)","fieldtype":"Int","default":"60","reqd":1},
+  {"fieldname":"retries","label":"Retries","fieldtype":"Int","default":"1"},
+  {"fieldname":"configuration_json","label":"Configuration JSON","fieldtype":"Code","options":"JSON"}
+ ],
+ "permissions":[{"role":"Financial AI Manager","read":1,"write":1,"create":1,"delete":1},{"role":"System Manager","read":1,"write":1,"create":1,"delete":1}]
+}
+

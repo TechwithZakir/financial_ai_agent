@@ -1,0 +1,18 @@
+{
+ "doctype":"DocType","name":"AI Knowledge Document","module":"Financial AI Agent","autoname":"hash","track_changes":1,
+ "field_order":["knowledge_base","file","title","document_type","version","status","indexed","checksum","last_indexed","metadata_json"],
+ "fields":[
+  {"fieldname":"knowledge_base","label":"Knowledge Base","fieldtype":"Link","options":"AI Knowledge Base","reqd":1,"index":1},
+  {"fieldname":"file","label":"File","fieldtype":"Attach","reqd":1},
+  {"fieldname":"title","label":"Title","fieldtype":"Data","reqd":1},
+  {"fieldname":"document_type","label":"Document Type","fieldtype":"Data"},
+  {"fieldname":"version","label":"Version","fieldtype":"Data"},
+  {"fieldname":"status","label":"Status","fieldtype":"Select","options":"Uploaded\nQueued\nProcessing\nReady\nFailed","default":"Uploaded","index":1},
+  {"fieldname":"indexed","label":"Indexed","fieldtype":"Check","default":"0"},
+  {"fieldname":"checksum","label":"Checksum","fieldtype":"Data","read_only":1},
+  {"fieldname":"last_indexed","label":"Last Indexed","fieldtype":"Datetime","read_only":1},
+  {"fieldname":"metadata_json","label":"Metadata","fieldtype":"JSON"}
+ ],
+ "permissions":[{"role":"Financial AI User","read":1},{"role":"Financial AI Manager","read":1,"write":1,"create":1,"delete":1},{"role":"System Manager","read":1,"write":1,"create":1,"delete":1}]
+}
+

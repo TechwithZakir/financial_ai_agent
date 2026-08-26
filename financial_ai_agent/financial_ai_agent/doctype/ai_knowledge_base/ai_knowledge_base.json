@@ -1,0 +1,15 @@
+{
+ "doctype":"DocType","name":"AI Knowledge Base","module":"Financial AI Agent","autoname":"field:title","track_changes":1,
+ "field_order":["title","enabled","description","access_roles","embedding_model","status","indexing_status"],
+ "fields":[
+  {"fieldname":"title","label":"Title","fieldtype":"Data","reqd":1,"unique":1},
+  {"fieldname":"enabled","label":"Enabled","fieldtype":"Check","default":"1"},
+  {"fieldname":"description","label":"Description","fieldtype":"Small Text"},
+  {"fieldname":"access_roles","label":"Access Roles","fieldtype":"Small Text"},
+  {"fieldname":"embedding_model","label":"Embedding Model","fieldtype":"Link","options":"AI Model"},
+  {"fieldname":"status","label":"Status","fieldtype":"Select","options":"Draft\nActive\nDisabled","default":"Draft"},
+  {"fieldname":"indexing_status","label":"Indexing Status","fieldtype":"Select","options":"Not Indexed\nQueued\nIndexing\nReady\nFailed","default":"Not Indexed"}
+ ],
+ "permissions":[{"role":"Financial AI User","read":1},{"role":"Financial AI Manager","read":1,"write":1,"create":1,"delete":1},{"role":"System Manager","read":1,"write":1,"create":1,"delete":1}]
+}
+

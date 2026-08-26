@@ -1,0 +1,22 @@
+{
+ "doctype":"DocType","name":"AI Usage Log","module":"Financial AI Agent","autoname":"hash","track_changes":0,
+ "field_order":["provider","model","input_tokens","output_tokens","cached_tokens","estimated_cost","session","user","feature","duration","status","correlation_id","fallback_used","retry_count"],
+ "fields":[
+  {"fieldname":"provider","label":"Provider","fieldtype":"Link","options":"AI Provider","index":1},
+  {"fieldname":"model","label":"Model","fieldtype":"Data","index":1},
+  {"fieldname":"input_tokens","label":"Input Tokens","fieldtype":"Int"},
+  {"fieldname":"output_tokens","label":"Output Tokens","fieldtype":"Int"},
+  {"fieldname":"cached_tokens","label":"Cached Tokens","fieldtype":"Int"},
+  {"fieldname":"estimated_cost","label":"Estimated Cost","fieldtype":"Currency"},
+  {"fieldname":"session","label":"Session","fieldtype":"Link","options":"AI Agent Session","index":1},
+  {"fieldname":"user","label":"User","fieldtype":"Link","options":"User","index":1},
+  {"fieldname":"feature","label":"Feature","fieldtype":"Data"},
+  {"fieldname":"duration","label":"Duration (ms)","fieldtype":"Int"},
+  {"fieldname":"status","label":"Status","fieldtype":"Select","options":"Success\nFailed","index":1},
+  {"fieldname":"correlation_id","label":"Correlation ID","fieldtype":"Data","index":1},
+  {"fieldname":"fallback_used","label":"Fallback Used","fieldtype":"Check"},
+  {"fieldname":"retry_count","label":"Retry Count","fieldtype":"Int"}
+ ],
+ "permissions":[{"role":"Financial AI Manager","read":1},{"role":"Financial AI Compliance Reviewer","read":1},{"role":"System Manager","read":1}]
+}
+

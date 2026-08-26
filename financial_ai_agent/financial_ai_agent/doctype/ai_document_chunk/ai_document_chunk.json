@@ -1,0 +1,15 @@
+{
+ "doctype":"DocType","name":"AI Document Chunk","module":"Financial AI Agent","autoname":"hash","track_changes":0,
+ "field_order":["knowledge_base","source_document","chunk_number","content","page","section_name","metadata_json","embedding_reference"],
+ "fields":[
+  {"fieldname":"knowledge_base","label":"Knowledge Base","fieldtype":"Link","options":"AI Knowledge Base","reqd":1,"index":1},
+  {"fieldname":"source_document","label":"Source Document","fieldtype":"Link","options":"AI Knowledge Document","reqd":1,"index":1},
+  {"fieldname":"chunk_number","label":"Chunk Number","fieldtype":"Int","reqd":1},
+  {"fieldname":"content","label":"Content","fieldtype":"Long Text","reqd":1},
+  {"fieldname":"page","label":"Page","fieldtype":"Int"},
+  {"fieldname":"section_name","label":"Section","fieldtype":"Data"},
+  {"fieldname":"metadata_json","label":"Metadata","fieldtype":"JSON"},
+  {"fieldname":"embedding_reference","label":"Embedding Reference","fieldtype":"Data"}
+ ],
+ "permissions":[{"role":"Financial AI Manager","read":1,"create":1,"delete":1},{"role":"System Manager","read":1,"create":1,"delete":1}]
+}

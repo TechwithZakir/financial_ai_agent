@@ -1,0 +1,24 @@
+{
+ "doctype":"DocType","name":"CRM Connector","module":"Financial AI Agent","autoname":"field:connector_name","track_changes":1,
+ "field_order":["connector_name","enabled","crm_type","is_default","mode","site_url","authentication_type","api_key","api_secret","timeout","retries","read_enabled","create_enabled","update_enabled","delete_enabled","approval_policy"],
+ "fields":[
+  {"fieldname":"connector_name","label":"Connector Name","fieldtype":"Data","reqd":1,"unique":1},
+  {"fieldname":"enabled","label":"Enabled","fieldtype":"Check","default":"1"},
+  {"fieldname":"crm_type","label":"CRM Type","fieldtype":"Select","options":"Frappe CRM\nSalesforce Headless 360\nHubSpot\nZoho CRM\nMicrosoft Dynamics 365\nCustom REST CRM","reqd":1},
+  {"fieldname":"is_default","label":"Default Connector","fieldtype":"Check"},
+  {"fieldname":"mode","label":"Mode","fieldtype":"Select","options":"Local\nRemote","default":"Local","reqd":1},
+  {"fieldname":"site_url","label":"Site URL","fieldtype":"Data","depends_on":"eval:doc.mode=='Remote'"},
+  {"fieldname":"authentication_type","label":"Authentication Type","fieldtype":"Select","options":"Local Session\nAPI Key\nOAuth 2.0\nMCP OAuth","reqd":1},
+  {"fieldname":"api_key","label":"API Key","fieldtype":"Password"},
+  {"fieldname":"api_secret","label":"API Secret","fieldtype":"Password"},
+  {"fieldname":"timeout","label":"Timeout","fieldtype":"Int","default":"60"},
+  {"fieldname":"retries","label":"Retries","fieldtype":"Int","default":"1"},
+  {"fieldname":"read_enabled","label":"Read Enabled","fieldtype":"Check","default":"1"},
+  {"fieldname":"create_enabled","label":"Create Enabled","fieldtype":"Check"},
+  {"fieldname":"update_enabled","label":"Update Enabled","fieldtype":"Check"},
+  {"fieldname":"delete_enabled","label":"Delete Enabled","fieldtype":"Check"},
+  {"fieldname":"approval_policy","label":"Approval Policy","fieldtype":"JSON"}
+ ],
+ "permissions":[{"role":"Financial AI Manager","read":1,"write":1,"create":1,"delete":1},{"role":"System Manager","read":1,"write":1,"create":1,"delete":1}]
+}
+

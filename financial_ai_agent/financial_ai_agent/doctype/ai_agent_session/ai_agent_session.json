@@ -1,0 +1,18 @@
+{
+ "doctype":"DocType","name":"AI Agent Session","module":"Financial AI Agent","autoname":"hash","track_changes":1,
+ "field_order":["user","agent","title","status","last_activity","linked_crm_context","linked_client_type","linked_client","conversation_summary","input_tokens","output_tokens"],
+ "fields":[
+  {"fieldname":"user","label":"User","fieldtype":"Link","options":"User","reqd":1,"index":1},
+  {"fieldname":"agent","label":"Agent","fieldtype":"Link","options":"AI Agent","reqd":1},
+  {"fieldname":"title","label":"Title","fieldtype":"Data"},
+  {"fieldname":"status","label":"Status","fieldtype":"Select","options":"Open\nClosed\nArchived","default":"Open","index":1},
+  {"fieldname":"last_activity","label":"Last Activity","fieldtype":"Datetime","index":1},
+  {"fieldname":"linked_crm_context","label":"Linked CRM Context","fieldtype":"JSON"},
+  {"fieldname":"linked_client_type","label":"Linked Client Type","fieldtype":"Link","options":"DocType"},
+  {"fieldname":"linked_client","label":"Linked Client","fieldtype":"Dynamic Link","options":"linked_client_type"},
+  {"fieldname":"conversation_summary","label":"Conversation Summary","fieldtype":"Long Text"},
+  {"fieldname":"input_tokens","label":"Input Tokens","fieldtype":"Int","read_only":1},
+  {"fieldname":"output_tokens","label":"Output Tokens","fieldtype":"Int","read_only":1}
+ ],
+ "permissions":[{"role":"Financial AI User","read":1,"write":1,"create":1},{"role":"Financial AI Manager","read":1,"write":1,"create":1},{"role":"System Manager","read":1,"write":1,"create":1}]
+}
