@@ -55,7 +55,7 @@ def generate_test_data() -> dict:
     files = _demo_files(knowledge)
     frappe.db.commit()
     return {"provider": provider, "model": model, "connector": connector,
-            "knowledge_base": knowledge, "agent": agent, "crm_lead": lead, "files": files,
+            "knowledge_base": knowledge, "agent": agent, "lead": lead, "files": files,
             "warning": "Requires an OpenAI-compatible server at 127.0.0.1:11434 using qwen2.5:7b."}
 
 
@@ -69,17 +69,16 @@ def _ensure(doctype: str, name: str, values: dict) -> str:
 
 
 def _demo_lead() -> str | None:
-    if not frappe.db.exists("DocType", "CRM Lead"):
+    if not frappe.db.exists("DocType", "Lead"):
         return None
-    existing = frappe.db.get_value("CRM Lead", {"organization": "Northstar Trading Demo"}, "name")
+    existing = frappe.db.get_value("Lead", {"company_name": "Northstar Trading Demo"}, "name")
     if existing:
         return existing
-    meta = frappe.get_meta("CRM Lead")
-    values = {"doctype": "CRM Lead"}
+    meta = frappe.get_meta("Lead")
+    values = {"doctype": "Lead"}
     candidates = {
-        "organization": "Northstar Trading Demo", "first_name": "Amina", "last_name": "Rahman",
-        "email": "amina.rahman@example.invalid", "mobile_no": "+8801700000000",
-        "status": "New", "source": "Campaign",
+        "company_name": "Northstar Trading Demo", "first_name": "Amina", "last_name": "Rahman",
+        "email_id": "amina.rahman@example.invalid", "mobile_no": "+8801700000000",
     }
     for field, value in candidates.items():
         if meta.has_field(field):
@@ -87,7 +86,7 @@ def _demo_lead() -> str | None:
     try:
         return frappe.get_doc(values).insert(ignore_permissions=True).name
     except Exception:
-        frappe.log_error(frappe.get_traceback(), "Could not create optional demo CRM Lead")
+        frappe.log_error(frappe.get_traceback(), "Could not create optional ERPNext Lead")
         return None
 
 

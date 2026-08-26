@@ -5,7 +5,7 @@ import frappe
 from financial_ai_agent.providers.crm.base import BaseCRMProvider
 
 CANONICAL_TYPES = {
-    "Lead": "CRM Lead",
+    "Lead": "Lead",
     "Contact": "Contact",
     "Account": "CRM Organization",
     "Deal": "CRM Deal",
@@ -57,13 +57,13 @@ class FrappeCRMProvider(BaseCRMProvider):
         return self.create("Note", {"title": f"{object_type} {record_id}", "content": note})
 
     def test_connection(self):
-        available = bool(frappe.db.exists("DocType", "CRM Lead"))
+        available = bool(frappe.db.exists("DocType", "Lead"))
         return {
             "ok": available,
             "mode": "local",
             "message": (
-                "Frappe CRM is available on this site."
+                "ERPNext Lead is available through the local site connection."
                 if available else
-                "CRM Lead DocType was not found. Install and migrate the Frappe CRM app first."
+                "ERPNext Lead DocType was not found. Verify ERPNext is installed and migrated."
             ),
         }
