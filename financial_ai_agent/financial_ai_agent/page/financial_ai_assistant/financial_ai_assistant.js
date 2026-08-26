@@ -1,6 +1,6 @@
 frappe.pages["financial-ai-assistant"].on_page_load = function (wrapper) {
   const page = frappe.ui.make_app_page({ parent: wrapper, title: __("Financial AI Assistant"), single_column: true });
-  frappe.require("/assets/financial_ai_agent/css/financial_ai.css").then(() => new FinancialAIDeskPage(page));
+  frappe.require("/assets/financial_ai_agent/css/financial_ai.css?v=20260826-crm-workspace").then(() => new FinancialAIDeskPage(page));
 };
 
 class FinancialAIDeskPage {
