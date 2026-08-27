@@ -2,7 +2,11 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from enum import Enum
+import re
 from typing import Any, Callable
+
+
+TOOL_NAME_PATTERN = re.compile(r"^[a-zA-Z0-9_-]+$")
 
 
 class RiskLevel(str, Enum):
@@ -27,6 +31,10 @@ class ToolRegistry:
         self._tools: dict[str, RegisteredTool] = {}
 
     def register(self, definition: RegisteredTool) -> None:
+        if not TOOL_NAME_PATTERN.fullmatch(definition.name):
+            raise ValueError(
+                f"Invalid tool name {definition.name!r}: use only letters, numbers, underscores, and hyphens"
+            )
         if definition.name in self._tools:
             raise ValueError(f"Tool already registered: {definition.name}")
         self._tools[definition.name] = definition
@@ -53,4 +61,3 @@ def tool(*, name: str, description: str, schema: dict, risk=RiskLevel.GREEN, rol
         registry.register(RegisteredTool(name, description, function, schema, risk, tuple(roles)))
         return function
     return decorator
-

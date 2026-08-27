@@ -22,7 +22,7 @@ def _provider(connector: str, operation: str):
 
 
 @tool(
-    name="crm.search", description="Search canonical CRM records using provider permissions.",
+    name="crm_search", description="Search canonical CRM records using provider permissions.",
     schema={"type":"object","properties":{
         "connector":{"type":"string"}, "object_type":{"type":"string","enum":["Lead","Contact","Account","Deal","Task","Note"]},
         "query":{"type":"string"}, "filters":{"type":"object"}, "limit":{"type":"integer","minimum":1,"maximum":100}},
@@ -33,7 +33,7 @@ def search(connector: str, object_type: str, query=None, filters=None, limit=20)
 
 
 @tool(
-    name="crm.get", description="Get one canonical CRM record.",
+    name="crm_get", description="Get one canonical CRM record.",
     schema={"type":"object","properties":{"connector":{"type":"string"},"object_type":{"type":"string"},"record_id":{"type":"string"}},
             "required":["connector","object_type","record_id"]}, roles=CRM_ROLES,
 )
@@ -42,7 +42,7 @@ def get(connector: str, object_type: str, record_id: str):
 
 
 @tool(
-    name="crm.create", description="Create a canonical CRM record after human approval.",
+    name="crm_create", description="Create a canonical CRM record after human approval.",
     schema={"type":"object","properties":{"connector":{"type":"string"},"object_type":{"type":"string"},"values":{"type":"object"}},
             "required":["connector","object_type","values"]}, risk=RiskLevel.AMBER, roles=CRM_ROLES,
 )
@@ -51,10 +51,9 @@ def create(connector: str, object_type: str, values: dict):
 
 
 @tool(
-    name="crm.update", description="Update a canonical CRM record after human approval.",
+    name="crm_update", description="Update a canonical CRM record after human approval.",
     schema={"type":"object","properties":{"connector":{"type":"string"},"object_type":{"type":"string"},"record_id":{"type":"string"},"values":{"type":"object"}},
             "required":["connector","object_type","record_id","values"]}, risk=RiskLevel.AMBER, roles=CRM_ROLES,
 )
 def update(connector: str, object_type: str, record_id: str, values: dict):
     return _provider(connector, "update").update(object_type, record_id, values)
-

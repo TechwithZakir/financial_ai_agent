@@ -89,7 +89,7 @@ Images are accepted by the upload UI, but extraction requires a configured visio
 
 ## 7. CRM and approval tests
 
-Read test: ask `Find the Northstar Trading Demo lead.` The agent should use `crm.search` and respect Frappe permissions.
+Read test: ask `Find the Northstar Trading Demo lead.` The agent should use `crm_search` and respect Frappe permissions.
 
 Write test: ask the agent to update the demo lead. The tool must create an AI Approval Request rather than executing immediately. A different manager/reviewer approves it, then uses **Execute Approved Action**. Repeated execution must return the stored result and not repeat the mutation.
 
@@ -114,4 +114,3 @@ Before production use:
 - Validate provider data-processing terms for financial data and PII.
 - Complete live CRM and provider acceptance tests.
 - Keep human review enabled for extracted financial data and CRM mutations.
-
