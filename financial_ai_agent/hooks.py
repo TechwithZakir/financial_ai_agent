@@ -24,6 +24,7 @@ permission_query_conditions = {
     "AI Approval Request": "financial_ai_agent.permissions.approval_query",
     "AI Usage Log": "financial_ai_agent.permissions.usage_query",
     "Client Document": "financial_ai_agent.permissions.client_document_query",
+    "Financial AI Salesforce Connection": "financial_ai_agent.permissions.salesforce_connection_query",
 }
 
 has_permission = {
@@ -32,4 +33,5 @@ has_permission = {
     "AI Approval Request": "financial_ai_agent.permissions.approval_permission",
     "AI Usage Log": "financial_ai_agent.permissions.usage_permission",
     "Client Document": "financial_ai_agent.permissions.client_document_permission",
+    "Financial AI Salesforce Connection": "financial_ai_agent.permissions.salesforce_connection_permission",
 }

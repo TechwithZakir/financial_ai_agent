@@ -1,7 +1,10 @@
 from __future__ import annotations
 
+import uuid
+
 import frappe
 
+from financial_ai_agent.ai.contracts import AIRequest, DataClassification
 from financial_ai_agent.ai.orchestrator import FinancialAIOrchestrator
 from financial_ai_agent.providers.llm.registry import get_provider
 
@@ -68,13 +71,20 @@ def test_agent_connection(agent: str):
     if not provider.enabled:
         return {"ok": False, "message": "The model's AI Provider is disabled."}
     try:
-        result = get_provider(provider).test_connection() or {}
+        response = get_provider(provider).generate(AIRequest(
+            messages=[{"role": "user", "content": "Reply OK."}],
+            model=model.model_id,
+            system_instruction="This is a connection health check. Reply only OK.",
+            max_output_tokens=8,
+            correlation_id=str(uuid.uuid4()),
+            data_classification=DataClassification.PUBLIC,
+        ))
         return {
-            "ok": bool(result.get("ok")),
+            "ok": True,
             "agent": agent_doc.name,
             "provider": provider.provider_name,
             "model": model.model_id,
-            "message": result.get("message") or "AI provider connection is available.",
+            "message": "AI provider and configured model responded successfully.",
         }
     except Exception:
         correlation = frappe.generate_hash(length=12)

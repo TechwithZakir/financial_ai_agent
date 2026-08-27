@@ -105,6 +105,21 @@ creates and synchronizes it from `modules.txt` during installation/migration.
 
 Assign `Financial AI User` to users, `Financial AI Manager` to platform administrators, and `Financial AI Compliance Reviewer` to approval reviewers. Configure an **AI Provider**, one or more **AI Model** records, and an enabled **AI Agent** before calling the chat API.
 
+## Standalone Salesforce Hosted MCP connection
+
+This app owns its Salesforce OAuth 2.0 PKCE connection and does not require
+`salesforce_mcp_ai`. Configure a **CRM Connector** with CRM Type **Salesforce
+Headless 360**, the Salesforce login and Hosted MCP URLs, the External Client
+App Consumer Key, and the optional client secret.
+
+Register this callback URL in the Salesforce External Client App:
+
+`https://<your-frappe-site>/api/method/financial_ai_agent.api.salesforce.salesforce_callback`
+
+Financial AI users can then select that connector and use **Connect Salesforce**
+in the assistant. Access and refresh tokens are stored in encrypted Password
+fields on a per-user connection record.
+
 ## Chat API
 
 Call the whitelisted method `financial_ai_agent.api.chat.chat` with `message`, `agent`, and optional `session`, `model`, and `classification` values. API keys remain encrypted Password fields and are never returned to browser code.

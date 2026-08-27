@@ -1,0 +1,24 @@
+{
+ "doctype":"DocType","name":"Financial AI Salesforce Connection","module":"Financial AI Agent","autoname":"hash","track_changes":1,
+ "field_order":["frappe_user","connector","connected","salesforce_user_id","salesforce_username","salesforce_instance_url","salesforce_identity_url","access_token","refresh_token","token_issued_at","token_expiry","last_connected_on","last_token_refresh"],
+ "fields":[
+  {"fieldname":"frappe_user","label":"Frappe User","fieldtype":"Link","options":"User","reqd":1,"in_list_view":1},
+  {"fieldname":"connector","label":"CRM Connector","fieldtype":"Link","options":"CRM Connector","reqd":1,"in_list_view":1},
+  {"fieldname":"connected","label":"Connected","fieldtype":"Check","default":"0","in_list_view":1},
+  {"fieldname":"salesforce_user_id","label":"Salesforce User ID","fieldtype":"Data"},
+  {"fieldname":"salesforce_username","label":"Salesforce Username","fieldtype":"Data"},
+  {"fieldname":"salesforce_instance_url","label":"Salesforce Instance URL","fieldtype":"Data"},
+  {"fieldname":"salesforce_identity_url","label":"Salesforce Identity URL","fieldtype":"Data"},
+  {"fieldname":"access_token","label":"Access Token","fieldtype":"Password","hidden":1},
+  {"fieldname":"refresh_token","label":"Refresh Token","fieldtype":"Password","hidden":1},
+  {"fieldname":"token_issued_at","label":"Token Issued At","fieldtype":"Datetime"},
+  {"fieldname":"token_expiry","label":"Token Expiry","fieldtype":"Datetime"},
+  {"fieldname":"last_connected_on","label":"Last Connected On","fieldtype":"Datetime"},
+  {"fieldname":"last_token_refresh","label":"Last Token Refresh","fieldtype":"Datetime"}
+ ],
+ "permissions":[
+  {"role":"Financial AI User","read":1},
+  {"role":"Financial AI Manager","read":1},
+  {"role":"System Manager","read":1}
+ ]
+}

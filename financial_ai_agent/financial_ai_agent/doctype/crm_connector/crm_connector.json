@@ -1,6 +1,6 @@
 {
  "doctype":"DocType","name":"CRM Connector","module":"Financial AI Agent","autoname":"field:connector_name","track_changes":1,
- "field_order":["connector_name","enabled","crm_type","is_default","mode","site_url","authentication_type","api_key","api_secret","timeout","retries","read_enabled","create_enabled","update_enabled","delete_enabled","approval_policy"],
+ "field_order":["connector_name","enabled","crm_type","is_default","mode","site_url","authentication_type","api_key","api_secret","salesforce_section","salesforce_login_url","salesforce_mcp_url","salesforce_consumer_key","salesforce_client_secret","timeout","retries","read_enabled","create_enabled","update_enabled","delete_enabled","approval_policy"],
  "fields":[
   {"fieldname":"connector_name","label":"Connector Name","fieldtype":"Data","reqd":1,"unique":1},
   {"fieldname":"enabled","label":"Enabled","fieldtype":"Check","default":"1"},
@@ -11,6 +11,11 @@
   {"fieldname":"authentication_type","label":"Authentication Type","fieldtype":"Select","options":"Local Session\nAPI Key\nOAuth 2.0\nMCP OAuth","reqd":1},
   {"fieldname":"api_key","label":"API Key","fieldtype":"Password"},
   {"fieldname":"api_secret","label":"API Secret","fieldtype":"Password"},
+  {"fieldname":"salesforce_section","label":"Salesforce OAuth / Hosted MCP","fieldtype":"Section Break","depends_on":"eval:doc.crm_type=='Salesforce Headless 360'"},
+  {"fieldname":"salesforce_login_url","label":"Salesforce Login URL","fieldtype":"Data","default":"https://login.salesforce.com","depends_on":"eval:doc.crm_type=='Salesforce Headless 360'"},
+  {"fieldname":"salesforce_mcp_url","label":"Salesforce MCP URL","fieldtype":"Data","default":"https://api.salesforce.com/platform/mcp/v1/platform/headless-360","depends_on":"eval:doc.crm_type=='Salesforce Headless 360'"},
+  {"fieldname":"salesforce_consumer_key","label":"External Client App Consumer Key","fieldtype":"Data","depends_on":"eval:doc.crm_type=='Salesforce Headless 360'"},
+  {"fieldname":"salesforce_client_secret","label":"External Client App Client Secret","fieldtype":"Password","depends_on":"eval:doc.crm_type=='Salesforce Headless 360'"},
   {"fieldname":"timeout","label":"Timeout","fieldtype":"Int","default":"60"},
   {"fieldname":"retries","label":"Retries","fieldtype":"Int","default":"1"},
   {"fieldname":"read_enabled","label":"Read Enabled","fieldtype":"Check","default":"1"},

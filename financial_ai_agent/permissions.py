@@ -43,6 +43,10 @@ def client_document_query(user=None):
     return _owned_query(user, "uploaded_by").format(doctype="Client Document")
 
 
+def salesforce_connection_query(user=None):
+    return _owned_query(user, "frappe_user").format(doctype="Financial AI Salesforce Connection")
+
+
 def _owned_permission(doc, user: str | None, field: str) -> bool:
     user = user or frappe.session.user
     return _is_manager(user) or getattr(doc, field, None) == user
@@ -69,4 +73,8 @@ def usage_permission(doc, user=None, **kwargs):
 
 def client_document_permission(doc, user=None, **kwargs):
     return _owned_permission(doc, user, "uploaded_by")
+
+
+def salesforce_connection_permission(doc, user=None, **kwargs):
+    return _owned_permission(doc, user, "frappe_user")
 
