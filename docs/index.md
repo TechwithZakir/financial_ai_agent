@@ -8,6 +8,8 @@ lang: en
 
 # Financial AI Agent: governed AI for finance and CRM work
 
+![Banner](banner.svg)
+
 Financial AI Agent is an enterprise-focused AI agent platform on the Frappe Framework from Reckon Technologies Ltd. It goes beyond a chatbot by combining AI reasoning, retrieval over your own knowledge, document extraction, tool calling, CRM actions, human approvals and audit trails in one application. It is part of the AI direction of [ReckonERP](https://app.reckon.tech).
 
 ## Detailed features
